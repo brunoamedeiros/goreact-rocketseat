@@ -1,0 +1,24 @@
+{
+  "name": "goreact-rocketseat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunoamedeiros/goreact-rocketseat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brunoamedeiros/goreact-rocketseat/issues"
+  },
+  "homepage": "https://github.com/brunoamedeiros/goreact-rocketseat#readme",
+  "dependencies": {
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1"
+  }
+}
