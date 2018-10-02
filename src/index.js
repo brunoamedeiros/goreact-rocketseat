@@ -1,41 +1,67 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { render } from 'react-dom';
 
-class Button extends Component {
-  static defaultProps = {
-    children: 'Salvar',
+import Button from './Button';
+
+import './style.scss';
+
+class App extends Component {
+  state = {
+    counter: 0,
   };
-  
-  static propTypes = {
-    onClick: PropTypes.func.isRequired,
-    children: PropTypes.string
+
+  // Montagem / Atualização
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   return { counter: nextProps.initialCounter };
+  // }
+
+  // // Montagem
+  // componentDidMount() {
+
+  // }
+
+  // // Atualizações
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return nextState.counter <= 10;
+  // }
+
+  // getSnapshotBeforeUpdate(prevProps, prevState) {
+  //   return prevState.counter;
+  // }
+
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   console.log(prevState, snapshot);
+  // }
+
+  // // Desmontagem
+  // componentWillUnmount() {
+
+  // }
+
+  // // Error
+  // componentDidCatch(error, info) {
+  //   console.log('ERRO', error);
+  // }
+
+  handleClick = () => {
+    this.setState({
+      counter: this.state.counter + 1,
+    });
+
+    // Alterar variavel o estado na fila
+    // this.setState(state => ({ counter: this.state.counter + 1}));
+
+    // Com callback
+    // this.setState({ counter: this.state.counter + 1}, () => {
+    //   console.log(this.state.counter);
+    // });
   };
 
   render() {
     return (
-      <button onClick={this.props.onClick}>
-        {this.props.children}
-      </button>
-    );
-  };
-}
-
-class App extends Component {
-
-  state = {
-    counter: 0,
-  }
-
-  handleClick = () => {
-    this.setState({ counter: this.state.counter + 1});    
-  };
-
-  render() {    
-    return (
       <Fragment>
-        <h1>Oi</h1>
-        <h2>{this.state.counter}</h2>
+        <h1 className="title">Oi</h1>
+        <h2 style={{ color: '#F00' }}>{this.state.counter}</h2>
         <Button onClick={this.handleClick}>Somar</Button>
       </Fragment>
     );
@@ -43,3 +69,4 @@ class App extends Component {
 }
 
 render(<App />, document.getElementById('app'));
+// render(<App initialCounter={0} />, document.getElementById('app'));
