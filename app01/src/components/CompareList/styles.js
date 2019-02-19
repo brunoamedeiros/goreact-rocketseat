@@ -16,6 +16,17 @@ export const Repository = styled.div`
   display: flex;
   flex-direction: column;
 
+  .actions {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 15px;
+
+    i {
+      cursor: pointer;
+    }
+  }
+
   header {
     padding: 30px;
     display: flex;

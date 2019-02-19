@@ -16,6 +16,12 @@ export default class Main extends Component {
     repositories: [],
   };
 
+  componentDidMount() {
+    if (localStorage.getItem('repository') !== null) {
+      this.setState({ repositories: JSON.parse(localStorage.getItem('repository')) });
+    }
+  }
+
   handleAddRepository = async (e) => {
     e.preventDefault();
 
@@ -26,16 +32,44 @@ export default class Main extends Component {
 
       repository.lastCommit = moment(repository.pushed_at).fromNow();
 
+      localStorage.setItem('repository', JSON.stringify([...this.state.repositories, repository]));
+
       this.setState({
         repositoryInput: '',
-        repositories: [...this.state.repositories, repository],
         repositoryError: false,
+        repositories: JSON.parse(localStorage.getItem('repository')),
       });
     } catch (error) {
       this.setState({ repositoryError: true });
     } finally {
       this.setState({ loading: false });
     }
+  };
+
+  deleteRepo = async (id) => {
+    const updateRepository = this.state.repositories.filter(item => item.id !== id);
+
+    this.setState({
+      repositories: updateRepository,
+    });
+
+    localStorage.setItem('repository', JSON.stringify(updateRepository));
+  };
+
+  refreshRepo = async (id) => {
+    const repository = this.state.repositories.filter(item => item.id === id)[0];
+    const index = this.state.repositories.indexOf(repository);
+
+    const { data: newRepository } = await api.get(`/repos/${repository.full_name}`);
+    newRepository.lastCommit = moment(newRepository.pushed_at).fromNow();
+
+    const repositoryCopy = JSON.parse(JSON.stringify(this.state.repositories));
+    repositoryCopy[index] = newRepository;
+    this.setState({
+      repositories: repositoryCopy,
+    });
+
+    localStorage.setItem('repository', JSON.stringify(repositoryCopy));
   };
 
   render() {
@@ -56,7 +90,11 @@ export default class Main extends Component {
           </button>
         </Form>
 
-        <CompareList repositories={this.state.repositories} />
+        <CompareList
+          repositories={this.state.repositories}
+          deleteRepo={this.deleteRepo}
+          refreshRepo={this.refreshRepo}
+        />
       </Container>
     );
   }

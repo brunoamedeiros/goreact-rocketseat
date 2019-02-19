@@ -1,12 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 
 import { Container, Repository } from './styles';
 
-const CompareList = ({ repositories }) => (
+// eslint-disable-next-line react/prop-types
+const CompareList = ({ repositories, deleteRepo, refreshRepo }) => (
   <Container>
     {repositories.map(repository => (
       <Repository key={repository.id}>
+        <div className="actions">
+          <i className="refresh-repo fa fa-refresh" onClick={() => refreshRepo(repository.id)} />
+          <i className="delete-repo fa fa-close" onClick={() => deleteRepo(repository.id)} />
+        </div>
         <header>
           <img src={repository.owner.avatar_url} alt={repository.owner.login} />
           <strong>{repository.name}</strong>
@@ -40,19 +45,20 @@ const CompareList = ({ repositories }) => (
   </Container>
 );
 
-CompareList.PropTypes = {
-  repositories: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      owner: PropTypes.shape({
-        login: PropTypes.string,
-        avatar_url: PropTypes.string,
+// eslint-disable-next-line react/no-typos
+CompareList.propTypes = {
+  repositories: propTypes.arrayOf(
+    propTypes.shape({
+      id: propTypes.number,
+      name: propTypes.string,
+      owner: propTypes.shape({
+        login: propTypes.string,
+        avatar_url: propTypes.string,
       }),
-      stargazers_count: PropTypes.number,
-      forks_count: PropTypes.number,
-      open_issues_count: PropTypes.number,
-      pushed_at: PropTypes.number,
+      stargazers_count: propTypes.number,
+      forks_count: propTypes.number,
+      open_issues_count: propTypes.number,
+      pushed_at: propTypes.string,
     }),
   ).isRequired,
 };
