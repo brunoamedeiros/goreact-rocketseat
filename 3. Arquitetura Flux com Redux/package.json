@@ -1,11 +1,17 @@
 {
   "dependencies": {
+    "axios": "^0.18.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-redux": "^6.0.1",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "^2.1.5",
-    "redux": "^4.0.1"
+    "reactotron-react-js": "2.1.0",
+    "reactotron-redux": "2.1.0",
+    "reactotron-redux-saga": "^4.2.1",
+    "redux": "^4.0.1",
+    "redux-saga": "^1.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
